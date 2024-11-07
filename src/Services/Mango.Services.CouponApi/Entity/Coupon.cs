@@ -4,6 +4,7 @@ namespace Mango.Services.CouponApi.Entity
 {
     public class Coupon:EntityBase
     {
+        [Key]
         public int CouponId { get; set; }
         [MaxLength(25)]
         public string CouponCode { get; set; }

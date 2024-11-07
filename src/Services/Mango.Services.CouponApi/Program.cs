@@ -1,9 +1,11 @@
 using Mango.Services.CouponApi.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 #region Base Services
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -36,12 +38,21 @@ app.MapControllers();
 #endregion
 #region Advance App
 
-using (var serviceScope = app.Services.CreateScope())
-{
-    var dbContext = serviceScope.ServiceProvider.GetRequiredService<CouponDbContext>();
-    dbContext.Database.Migrate();
-}
+ApplyMigration();
+
 
 #endregion
 
 app.Run();
+
+
+
+void ApplyMigration()
+{
+    using (var serviceScope = app.Services.CreateScope())
+    {
+        var dbContext = serviceScope.ServiceProvider.GetRequiredService<CouponDbContext>();
+       if(dbContext.Database.GetPendingMigrations().Any())
+           dbContext.Database.Migrate();
+    }
+}
