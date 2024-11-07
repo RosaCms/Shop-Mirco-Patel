@@ -1,25 +1,47 @@
+using Mango.Services.CouponApi.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
+#region Base Services
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+#endregion
+#region Advance Services
+
+builder.Services.AddDbContext<CouponDbContext>(option =>
+{
+    option.UseSqlServer(builder.Configuration.GetValue<string>("ConnectionString:DefaultConnection"));
+    option.EnableSensitiveDataLogging(true);
+});
+
+
+
+#endregion
+
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+
+#region Base App
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
+#endregion
+#region Advance App
+
+using (var serviceScope = app.Services.CreateScope())
+{
+    var dbContext = serviceScope.ServiceProvider.GetRequiredService<CouponDbContext>();
+    dbContext.Database.Migrate();
+}
+
+#endregion
 
 app.Run();
