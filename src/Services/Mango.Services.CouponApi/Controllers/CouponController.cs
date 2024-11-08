@@ -18,6 +18,10 @@ namespace Mango.Services.CouponApi.Controllers
             HasError=false,
             Message="sdfsdf"
             };
+
+            throw new Exception("رکورد نبود");
+
+
             return res;
         }
 

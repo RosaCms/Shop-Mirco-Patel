@@ -1,3 +1,4 @@
+using Mango.Framework.Web.Middleware;
 using Mango.Services.CouponApi.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
@@ -39,7 +40,7 @@ app.MapControllers();
 #region Advance App
 
 ApplyMigration();
-
+app.UseMiddleware<ErrorHandlingMiddleware>();
 
 #endregion
 
