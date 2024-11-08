@@ -1,5 +1,6 @@
-﻿
-namespace Mango.Framework.Models.Coupon.Entity
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Mango.Services.CouponApi.Entity
 {
     public class Coupon : EntityBase
     {

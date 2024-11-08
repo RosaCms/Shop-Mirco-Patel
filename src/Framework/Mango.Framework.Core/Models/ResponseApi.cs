@@ -5,7 +5,9 @@ namespace Mango.Framework.Core.Models
 {
     public class ResponseApi<T>
     {
+      
         public T? Data { get; set; }
+    
         public bool HasError { get; set; }=false;
         public string Message { get; set; } = string.Empty;
         [JsonConverter(typeof(JsonStringEnumConverter))]

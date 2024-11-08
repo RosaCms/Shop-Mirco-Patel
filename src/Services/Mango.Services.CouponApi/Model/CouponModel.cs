@@ -1,7 +1,8 @@
-﻿
-namespace Mango.Framework.Models.Coupon.Model
+﻿using Mango.Services.CouponApi.Entity;
+
+namespace Mango.Services.CouponApi.Model
 {
-    public class CouponModel : ModelBase<Entity.Coupon, int>
+    public class CouponModel : ModelBase<Coupon, int>
     {
         public int CouponId { get; set; }
         public string CouponCode { get; set; }

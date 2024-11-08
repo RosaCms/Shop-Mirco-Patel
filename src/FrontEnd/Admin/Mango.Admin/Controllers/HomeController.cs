@@ -1,6 +1,7 @@
 using Mango.Admin.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using Mango.Admin.Services.Coupon;
 
 namespace Mango.Admin.Controllers
 {
@@ -8,13 +9,14 @@ namespace Mango.Admin.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger,ICouponService couponService)
         {
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Index([FromServices]ICouponService couponService)
         {
+            var a=couponService.GetAllCouponAsync().Result;
             return View();
         }
 

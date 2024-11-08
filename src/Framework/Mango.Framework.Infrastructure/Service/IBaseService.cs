@@ -2,10 +2,10 @@
 
 namespace Mango.Framework.Infrastructure.Service
 {
-    public interface IBaseService<T>
+    public interface IBaseService
     {
-        Task<ResponseApi<T?>> SendAsync(RequestApi<T> request);
+        Task<ResponseApi<TRes?>> SendAsync<TRes>(RequestApi request);
     }
+ 
 
-    public interface IBaseService : IBaseService<object>;
 }

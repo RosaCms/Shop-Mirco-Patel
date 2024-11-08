@@ -1,20 +1,20 @@
-﻿
-using System.Net;
-using Mango.Framework.Core.Enums;
+﻿using Mango.Framework.Core.Enums;
 using Mango.Framework.Core.Models;
 using Mango.Framework.Infrastructure.Service;
-using Mango.Framework.Web.Resources;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using System.Net;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 
 namespace Mango.Framework.Web.Services
 {
-    public class BaseService<T>(IHttpClientFactory httpClientFactory, IStringLocalizer localizer,ILogger<BaseService<T>> logger) : IBaseService<T>
+    public class BaseService(IHttpClientFactory httpClientFactory, IStringLocalizer<BaseService> localizer,ILogger<BaseService> logger) : IBaseService
     {
-        public async Task<ResponseApi<T?>> SendAsync(RequestApi<T> request)
+        public virtual async  Task<ResponseApi<TRes?>> SendAsync<TRes>(RequestApi request)
         {
-            ResponseApi<T> result = new();
+            ResponseApi<TRes> result = new();
             try
             {
                 HttpClient client = httpClientFactory.CreateClient("MangoApi");
@@ -59,8 +59,12 @@ namespace Mango.Framework.Web.Services
                         break;
                     default:
                         var apiContent = await apiResponse.Content.ReadAsStringAsync();
-                        var model = JsonConvert.DeserializeObject<T>(apiContent);
-                        result.SetSuccess(model, localizer["Request Success"]);
+                        var model = System.Text.Json.JsonSerializer.Deserialize<ResponseApi<TRes>>(apiContent, new JsonSerializerOptions
+                        {
+                            PropertyNameCaseInsensitive = true,
+                            Converters = { new JsonStringEnumConverter() }
+                        });
+                        result.SetSuccess(model.Data, localizer["Request Success"]);
                         break;
                 }
 

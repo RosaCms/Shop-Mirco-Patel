@@ -1,7 +1,9 @@
+using System.Globalization;
 using Mango.Admin.Services;
 using Mango.Admin.Services.Coupon;
 using Mango.Framework.Infrastructure.Service;
 using Mango.Framework.Web.Services;
+using Microsoft.AspNetCore.Localization;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -12,12 +14,27 @@ var services = builder.Services;
 services.AddControllersWithViews();
 services.AddHttpContextAccessor();
 services.AddHttpClient();
+services.AddLocalization(x => x.ResourcesPath = "Resources");
+services.AddScoped<IBaseService, Class>();
+services.Configure<RequestLocalizationOptions>(options =>
+{
+    var supportedCultures = new[]
+    {
+        new CultureInfo("fa-IR"),
+        new CultureInfo("en-US"),
+    };
+
+    options.DefaultRequestCulture = new RequestCulture(culture: "en-US", uiCulture: "fa-IR");
+    options.SupportedCultures = supportedCultures;
+    options.SupportedUICultures = supportedCultures;
+
+});
 #endregion
 
 #region Services
 services.AddServicesRoute(configuration);
 services.AddHttpClient<ICouponService, CouponService>();
-services.AddScoped(typeof(IBaseService<>), typeof(BaseService<>));
+
 services.AddScoped<ICouponService, CouponService>();
 #endregion
 

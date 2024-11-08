@@ -1,33 +1,27 @@
 ﻿using Mango.Framework.Core.Models;
-using Mango.Framework.Models.Coupon.Model;
 using Mango.Services.CouponApi.Data;
+using Mango.Services.CouponApi.Model;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Mango.Services.CouponApi.Controllers
 {
     [ApiController]
-    [Route("[controller]/[action]")]
+    [Route("api/[controller]")]
     public class CouponController(CouponDbContext context) : ControllerBase
     {
         [HttpGet]
-        public ResponseApi<string> Get()
+        public ResponseApi<List<CouponModel>> Get()
         {
-            var res = new ResponseApi<string>() { 
-            Data="test",
-            HasError=false,
-            Message="sdfsdf"
-            };
-
-            throw new Exception("رکورد نبود");
-
-
+            var res = new ResponseApi<List<CouponModel>>();
+            var response = context.Coupons.ToList();
+            res.SetSuccess(response.Adapt<List<CouponModel>>(), "");
             return res;
         }
 
         [HttpGet]
         [Route("{id:int}")]
-        public ResponseApi<CouponModel> Test(int id)
+        public ResponseApi<CouponModel> Get(int id)
         {
             var res = new ResponseApi<CouponModel>();
 
