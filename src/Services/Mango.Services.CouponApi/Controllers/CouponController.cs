@@ -1,6 +1,6 @@
 ﻿using Mango.Framework.Core.Models;
+using Mango.Framework.Models.Coupon.Model;
 using Mango.Services.CouponApi.Data;
-using Mango.Services.CouponApi.Models;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 

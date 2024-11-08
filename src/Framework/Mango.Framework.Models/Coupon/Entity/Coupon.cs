@@ -1,8 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Mango.Services.CouponApi.Entity
+﻿
+namespace Mango.Framework.Models.Coupon.Entity
 {
-    public class Coupon:EntityBase
+    public class Coupon : EntityBase
     {
         [Key]
         public int CouponId { get; set; }

@@ -1,4 +1,4 @@
-﻿using Mango.Services.CouponApi.Entity;
+﻿using Mango.Framework.Models.Coupon.Entity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Mango.Services.CouponApi.Data

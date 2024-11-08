@@ -1,7 +1,6 @@
-using Mango.Framework.Web.Middleware;
+using Mango.Framework.Service.Middleware;
 using Mango.Services.CouponApi.Data;
 using Microsoft.EntityFrameworkCore;
-using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 

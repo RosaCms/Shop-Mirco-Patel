@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 using System.Net;
 using System.Text.Json;
 
-namespace Mango.Framework.Web.Middleware
+namespace Mango.Framework.Service.Middleware
 {
     public class ErrorHandlingMiddleware(RequestDelegate next,ILogger<ErrorHandlingMiddleware> logger)
     {

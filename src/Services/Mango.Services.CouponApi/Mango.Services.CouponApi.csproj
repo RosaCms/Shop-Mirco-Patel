@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Framework\Mango.Framework.Web\Mango.Framework.Web.csproj" />
+    <ProjectReference Include="..\..\Framework\Mango.Framework.Service\Mango.Framework.Service.csproj" />
   </ItemGroup>
 
 </Project>
